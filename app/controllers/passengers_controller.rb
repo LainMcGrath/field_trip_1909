@@ -6,8 +6,14 @@ class PassengersController < ApplicationController
 
   def update
     passenger = Passenger.find(params[:id])
-    current_flights = passenger.flights.all
-    # require "pry"; binding.pry
+    flight = Flight.find_by(params[number: :flight_number])
+    FlightPassenger.create(passenger: passenger, flight: flight)
     redirect_to "/passengers/#{passenger.id}"
+  end
+
+  private
+
+  def flight_params
+    params.permit(:number)
   end
 end
