@@ -6,5 +6,9 @@ Rails.application.routes.draw do
 
   resources :flights, only: [:show]
 
-  resources :passengers, only: [:show]
+  # namespace :passengers, only: [:show, :update]
+
+  get "/passengers/:id", to: "passengers#show"
+  # get "/passengers/:id/flights/new", to: "passengers#update"
+  patch "/passengers/:id/flights", to: "passengers#update"
 end
