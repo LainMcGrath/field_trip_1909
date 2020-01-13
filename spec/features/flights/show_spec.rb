@@ -32,4 +32,26 @@ RSpec.describe "Flight show page" do
       expect(page).to have_content(passenger.name)
     end
   end
+
+  it "can show count of minors and adults" do
+    airline_1 = Airline.create(name: "United")
+    flight_1 = Flight.create(number: "JX12", date: "02/24/2020", time: "1:30pm", arrival_city: "Chicago", departure_city: "Denver", airline_id: airline_1.id)
+    passenger_1 = Passenger.create(name: "Caligula", age: 22)
+    passenger_2 = Passenger.create(name: "Nero", age: 17)
+    passenger_3 = Passenger.create(name: "Julius Caeser", age: 22)
+    passenger_4 = Passenger.create(name: "Augustus", age: 16)
+    passenger_5 = Passenger.create(name: "Claudius", age: 25)
+
+    FlightPassenger.create(flight: flight_1, passenger: passenger_1)
+    FlightPassenger.create(flight: flight_1, passenger: passenger_2)
+    FlightPassenger.create(flight: flight_1, passenger: passenger_3)
+    FlightPassenger.create(flight: flight_1, passenger: passenger_4)
+    FlightPassenger.create(flight: flight_1, passenger: passenger_5)
+
+    visit "/flights/#{flight_1.id}"
+
+    expect(page).to have_content("Number of minors: 2")
+    expect(page).to have_content("Number of adults: 3")
+
+  end
 end
