@@ -28,7 +28,8 @@ RSpec.describe "Passenger show page" do
   end
 
 # this test is failing because I am only finding the passenger's existing flight
-# not the flight number I am submitting with the form... infuriating
+# not the flight number I am submitting with the form
+# all other functionality from user story 3 is present
   it "can add a passenger to a flight" do
     airline_1 = Airline.create(name: "United")
     flight_1 = Flight.create(number: "JX12", date: "02/24/2020", time: "1:30pm", arrival_city: "Chicago", departure_city: "Denver", airline_id: airline_1.id)
